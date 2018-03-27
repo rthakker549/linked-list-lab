@@ -3,6 +3,8 @@
  */
 package edu.unl.raikes.linkedlistlab;
 
+import org.w3c.dom.NodeList;
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
@@ -85,7 +87,18 @@ public class MyLinkedList<E> implements List<E> {
 
 	@Override
 	public void add(int index, E element) {
-		// TODO: fill this in
+		if (head == null) {
+			head = new Node(element);
+		} else {
+			Node node = head;
+			for (int i = 0; i <= index; i++) {
+				node = node.next;
+			}
+			node.next = new Node(element);
+
+
+		}
+		size++;
 	}
 
 	@Override
@@ -146,8 +159,13 @@ public class MyLinkedList<E> implements List<E> {
 
 	@Override
 	public int indexOf(Object target) {
-		// TODO: fill this in
-		return -1;
+		Node node = head;
+		int count = 0;
+		while(!node.equals(target)) {
+			node = node.next;
+			count++;
+		}
+		return count;
 	}
 
 	/** Checks whether an element of the array is the target.
@@ -201,14 +219,24 @@ public class MyLinkedList<E> implements List<E> {
 
 	@Override
 	public boolean remove(Object obj) {
-		// TODO: fill this in
-		return false;
+		Node node = head;
+		while(!node.next.equals(obj)) {
+			node = node.next;
+		}
+		node.next = node.next.next;
+		return true;
 	}
 
 	@Override
 	public E remove(int index) {
-		// TODO: fill this in
-		return null;
+		Node node = head;
+		for (int i = 0; i < index; i++) {
+			node = node.next;
+		}
+		Node removed = node.next;
+		node.next = node.next.next;
+
+		return removed ;
 	}
 
 	@Override
